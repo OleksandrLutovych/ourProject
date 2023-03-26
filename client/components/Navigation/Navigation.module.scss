@@ -1,0 +1,19 @@
+@import "styles/variables";
+
+.nav {
+    // background-color: #141414;
+  ul {
+    display: flex;
+    flex-direction: row;
+    // color: $white;
+    li {
+      margin-right: 25px;
+      list-style: none;
+      a {
+        font-size: 1.2rem;
+        text-decoration: none;
+        color: white;
+      }
+    }
+  }
+}
