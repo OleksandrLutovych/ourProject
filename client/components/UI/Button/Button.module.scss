@@ -1,0 +1,11 @@
+.btn {
+  background-color: #d87d4a;
+  color: #ffffff;
+  padding: 15px 30px;
+  border: none;
+  cursor: pointer;
+  max-width: 160px;
+  &:hover {
+    background-color: #fbaf85;
+  }
+}

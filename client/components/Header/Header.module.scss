@@ -1,0 +1,27 @@
+.header {
+  background-color: #141414;
+  &_content {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.title {
+  letter-spacing: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.description {
+  font-size: 15px;
+  line-height: 25px;
+  margin-bottom: 90px;
+}
+.img {
+  width: 600px;
+  height: 700px;
+  background: url("./Bitmap.png")
+    no-repeat;
+  background-size: cover;
+  background-position: center;
+}

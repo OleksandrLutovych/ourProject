@@ -1,11 +1,13 @@
-import React from 'react';
+import Link from "next/link";
+import React from "react";
+import styles from "./Logo.module.scss";
 
 const Logo = () => {
-    return (
-        <div>
-            <a href="">audiophile</a> 
-        </div>
-    );
+  return (
+    <>
+      <Link href="/" className={styles.logo} />
+    </>
+  );
 };
 
 export default Logo;
