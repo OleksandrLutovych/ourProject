@@ -16,7 +16,7 @@ This project is an e-commerce website that allows customers to browse and purcha
 - ASP.NET for the back-end server and APIs
 - MySQL for storing data
 - .NET for creating APIs and handling server requests
-- AWS S3 for storing product images
+- MsSql for storing products
 
 ## Getting Started
 To get started with the project, follow these steps:
