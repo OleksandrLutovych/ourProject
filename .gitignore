@@ -3,7 +3,8 @@
 ################################################################################
 
 /.vs
-/Server/.vs/Server
 /Server/obj
 /Server/Properties
 /Server/bin/Debug/net6.0
+/Server/.vs/*
+/Server/Migrations
