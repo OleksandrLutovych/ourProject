@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
-
+using System.Linq;
+using System.Net;
 #nullable disable
 
 namespace Server.Controllers
@@ -26,9 +27,10 @@ namespace Server.Controllers
             }
         }
         [HttpPost]
-        public void CreateNewUser(User user)
+        public HttpResponseMessage CreateNewUser(User user)
         {
-            using(MySQLDbContext db = new MySQLDbContext())
+            if(user.Password is not null && user.Email is not null && user.Name is not null && user.LastName is not null)
+            using (MySQLDbContext db = new MySQLDbContext())
             {
                 byte[] bytes = SHA256Managed.Create().ComputeHash(Encoding.UTF8.GetBytes(user.Password));
                 user.Password = BitConverter.ToString(bytes).Replace("-", "").ToLower();
@@ -36,6 +38,13 @@ namespace Server.Controllers
                 user.Role = Roles.User;
                 db.Users.Add(user);
                 db.SaveChanges();
+                HttpContext.Response.StatusCode = 200;
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                HttpContext.Response.StatusCode = 400;
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
             }
         }
     }
