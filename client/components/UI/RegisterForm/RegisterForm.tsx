@@ -1,17 +1,15 @@
 import { Checkbox, TextField, Typography } from "@mui/material";
-import { display } from "@mui/system";
+import { useAppDispatch } from "hooks/reduxHooks";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { SubmitHandler } from "react-hook-form/dist/types";
+import { createUser } from "redux-state/reducers/UsersReducer";
+import { IUser } from "types/User";
 import { Button } from "../Button";
 
-type Inputs = {
-  name: string;
-  email: string;
-  password: string;
-};
-
 const RegisterForm = () => {
+const dispatch = useAppDispatch()
+
   const style = {
     width: "100%",
     display: "flex",
@@ -25,9 +23,12 @@ const RegisterForm = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<Inputs>();
+  } = useForm<IUser>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IUser> = (data) => {
+    dispatch(createUser(data))
+    console.log(data)
+  };
 
   return (
     <>
@@ -40,21 +41,28 @@ const RegisterForm = () => {
           label="Name"
           variant="outlined"
           sx={inputStyle}
-          {...register('name')}
+          {...register("name")}
+        />
+        <TextField
+          type="text"
+          label="LastName"
+          variant="outlined"
+          sx={inputStyle}
+          {...register("lastName")}
         />
         <TextField
           type="email"
           label="Email Address"
           variant="outlined"
           sx={inputStyle}
-          {...register('email')}
+          {...register("email")}
         />
         <TextField
           type="password"
           variant="outlined"
           label="Password"
           sx={inputStyle}
-          {...register('password')}
+          {...register("password")}
         />
         <Typography>
           By registering, you agree to our <a href="">Terms & Conditions</a>,
@@ -69,7 +77,7 @@ const RegisterForm = () => {
             <a href="">Find out more</a>
           </Typography>
         </label>
-        <input type="submit" />
+        <Button type={"submit"}>Register</Button>
       </form>
     </>
   );
