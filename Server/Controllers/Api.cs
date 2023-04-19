@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Cors;
 
 namespace Server.Controllers
 {
-    [DisableCors]
+    
     public class Api:ControllerBase
     {
         [HttpGet]
