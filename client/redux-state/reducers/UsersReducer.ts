@@ -1,5 +1,5 @@
 import { RootState } from "./../store/store";
-import { IUser } from "types/User";
+import { IInitialStateUser, IUser } from "types/User";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { allUsersAPI, newUsersAPI } from "api/api";
 
@@ -19,27 +19,23 @@ export const createUser = createAsyncThunk(
       password: userData.password,
     };
     try {
-      const response = await fetch(newUsersAPI, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+      const response = await fetch(
+        "https://localhost:57680/Api/CreateNewUser",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }
+      );
       const data = response.json();
-
       console.log("Succeful", data);
     } catch (error) {
       console.log("Error", error);
     }
   }
 );
-
-interface IInitialStateUser {
-  users: IUser[];
-  loading: boolean;
-  error: boolean;
-}
 
 const initialState: IInitialStateUser = {
   users: [],

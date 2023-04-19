@@ -1,14 +1,16 @@
 import { Checkbox, TextField, Typography } from "@mui/material";
-import { useAppDispatch } from "hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { SubmitHandler } from "react-hook-form/dist/types";
-import { createUser } from "redux-state/reducers/UsersReducer";
 import { IUser } from "types/User";
 import { Button } from "../Button";
+import { createUser } from "redux-state/reducers/UsersReducer";
 
 const RegisterForm = () => {
+  
 const dispatch = useAppDispatch()
+const allUsers = useAppSelector(state => state.users)
 
   const style = {
     width: "100%",
@@ -26,8 +28,15 @@ const dispatch = useAppDispatch()
   } = useForm<IUser>();
 
   const onSubmit: SubmitHandler<IUser> = (data) => {
-    dispatch(createUser(data))
+    fetch('https://localhost:57680/Api/CreateNewUser', {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then(response => console.log(response.json()))
     console.log(data)
+    // return dispatch(createUser(data))
   };
 
   return (
@@ -37,15 +46,15 @@ const dispatch = useAppDispatch()
         style={{ ...style, flexDirection: "column" }}
       >
         <TextField
-          type="text"
+          type="name"
           label="Name"
           variant="outlined"
           sx={inputStyle}
           {...register("name")}
         />
         <TextField
-          type="text"
-          label="LastName"
+          type="lastName"
+          label="Last Name"
           variant="outlined"
           sx={inputStyle}
           {...register("lastName")}
@@ -78,6 +87,7 @@ const dispatch = useAppDispatch()
           </Typography>
         </label>
         <Button type={"submit"}>Register</Button>
+        
       </form>
     </>
   );

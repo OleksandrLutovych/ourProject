@@ -4,3 +4,9 @@ export interface IUser {
     email: string,
     password: string
 }
+
+export interface IInitialStateUser {
+      users: IUser[];
+      loading: boolean;
+      error: boolean;
+    }
