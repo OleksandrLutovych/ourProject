@@ -14,7 +14,9 @@ namespace Server
                     {
                         policy
                         .WithOrigins("http://localhost:3000","http://localhost:5000","https://localhost:5001")
-                        .WithMethods("GET","POST");
+                        .WithMethods("GET","POST")
+                        .AllowCredentials()
+                        .AllowAnyHeader();
                     });
             });
             var app = builder.Build();
