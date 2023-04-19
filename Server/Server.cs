@@ -7,6 +7,14 @@ namespace Server
         {
             var builder = WebApplication.CreateBuilder();
             builder.Services.AddControllers();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "_AllowedOrigins",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:3000");
+                    });
+            });
             var app = builder.Build();
             app.UseRouting();
             app.UseHttpsRedirection();
