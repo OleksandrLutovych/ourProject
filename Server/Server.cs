@@ -20,9 +20,10 @@ namespace Server
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.UseStaticFiles();
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
-              endpoints.MapControllerRoute(name:"default",pattern:"{controller}/{action}/{id?}");
+              endpoints.MapControllerRoute(name:"default",pattern:"{controller}/{action}/{id?}").RequireCors("_AllowedOrigins");
             });
             app.Run();
         }
