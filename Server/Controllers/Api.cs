@@ -4,9 +4,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
 using System.Net;
+using Microsoft.AspNetCore.Cors;
 
 namespace Server.Controllers
 {
+    [DisableCors]
     public class Api:ControllerBase
     {
         [HttpGet]

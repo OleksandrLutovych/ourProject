@@ -12,7 +12,9 @@ namespace Server
                 options.AddPolicy(name: "_AllowedOrigins",
                     policy =>
                     {
-                        policy.WithOrigins("http://localhost:3000","http://localhost:5000","https://localhost:5001").WithMethods("GET","POST");
+                        policy
+                        .WithOrigins("http://localhost:3000","http://localhost:5000","https://localhost:5001")
+                        .WithMethods("GET","POST");
                     });
             });
             var app = builder.Build();
