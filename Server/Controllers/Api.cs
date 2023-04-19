@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
 using System.Net;
-#nullable disable
 
 namespace Server.Controllers
 {
@@ -32,7 +31,7 @@ namespace Server.Controllers
             if(user.Password is not null && user.Email is not null && user.Name is not null && user.LastName is not null)
             using (MySQLDbContext db = new MySQLDbContext())
             {
-                byte[] bytes = SHA256Managed.Create().ComputeHash(Encoding.UTF8.GetBytes(user.Password));
+                byte[] bytes = SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(user.Password));
                 user.Password = BitConverter.ToString(bytes).Replace("-", "").ToLower();
                 user.CreationDate = DateTime.Now;
                 user.Role = Roles.User;
