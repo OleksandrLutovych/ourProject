@@ -4,11 +4,15 @@ import Button from "@mui/material/Button";
 import { Container } from "@mui/system";
 import { LoginModal } from "components/LoginModal";
 import { Logo } from "components/Logo";
-import Link from "next/link";
 import React, { useState } from "react";
-import style from "./Navigation.module.scss";
+import { AppBar, Box, Toolbar } from "@mui/material";
+import { NAVITEMS } from "lib/utils/constants";
+import { styles } from "./styles";
+import { useRouter } from "next/router";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Navigation = () => {
+  const router = useRouter();
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpen = () => setModalOpen(true);
@@ -16,34 +20,43 @@ const Navigation = () => {
 
   return (
     <>
-      <Container maxWidth="lg">
-        <nav className={style.nav}>
-          <Logo />
-          <ul>
-            <li>
-              <Link href="/home">Home</Link>
-            </li>
-            <li>
-              <Link href="/headphones">Headphones</Link>
-            </li>
-            <li>
-              <Link href="/speakers">Speakers</Link>
-            </li>
-            <li>
-              <Link href="/earphones">Earphones</Link>
-            </li>
-          </ul>
-          <div className="">
-            <Button onClick={handleOpen}>
-              <PersonIcon />
-            </Button>
-            <Button>
-              <ShoppingCartOutlined />
-            </Button>
-          </div>
-        </nav>
-      </Container>
-      
+      <AppBar
+        component="nav"
+        sx={styles}
+        color="transparent"
+        position="relative"
+        elevation={0}
+      >
+        <Container maxWidth="lg">
+          <Toolbar className="toolbar">
+            <Box>
+              <Button className="resp-menu">
+                <MenuIcon />
+              </Button>
+              <Logo />
+            </Box>
+            <Box>
+              {NAVITEMS.map((navitem) => (
+                <Button
+                  key={navitem.title}
+                  className="link-btn"
+                  onClick={() => router.push(navitem.path)}
+                >
+                  {navitem.title}
+                </Button>
+              ))}
+            </Box>
+            <Box>
+              <Button className="users-btn" onClick={handleOpen}>
+                <PersonIcon />
+              </Button>
+              <Button className="users-btn">
+                <ShoppingCartOutlined />
+              </Button>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
       <LoginModal isOpen={isModalOpen} handleClose={handleClose} />
     </>
   );

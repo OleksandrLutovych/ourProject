@@ -3,4 +3,6 @@ export * from './Navigation'
 export * from './LoginModal'
 export * from './Logo'
 export * from './Products'
-
+export * from './ProductDescription'
+export * from './Conclusion'
+export * from './Footer'

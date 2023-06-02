@@ -1,49 +1,58 @@
-import { Checkbox, TextField, Typography } from "@mui/material";
+import { Button, Checkbox, TextField, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { SubmitHandler } from "react-hook-form/dist/types";
 import { IUser } from "types/User";
-import { Button } from "../Button";
-import { createUser } from "redux-state/reducers/UsersReducer";
+import firebase from "firebase/app";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "pages/_app";
+import { emit } from "process";
+
+export const inputStyle = {
+  margin: "10px 0",
+};
+export const formStyle = {
+  width: "100%",
+  display: "flex",
+  padding: "20px 0",
+};
 
 const RegisterForm = () => {
-  
-const dispatch = useAppDispatch()
-const allUsers = useAppSelector(state => state.users)
+  const dispatch = useAppDispatch();
 
   const style = {
     width: "100%",
     display: "flex",
     padding: "20px 0",
   };
-  const inputStyle = {
-    margin: "10px 0",
-  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm<IUser>();
 
-  const onSubmit: SubmitHandler<IUser> = (data) => {
-    fetch('https://localhost:57680/Api/CreateNewUser', {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }).then(response => console.log(response.json()))
-    console.log(data)
-    // return dispatch(createUser(data))
+  const onSubmit: SubmitHandler<IUser> = async (data) => {
+    console.log(data);
+    try {
+      const createNewUser = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      const use = await createNewUser.user;
+      console.log("Success!");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        style={{ ...style, flexDirection: "column" }}
+        style={{ ...formStyle, flexDirection: "column" }}
       >
         <TextField
           type="name"
@@ -86,8 +95,9 @@ const allUsers = useAppSelector(state => state.users)
             <a href="">Find out more</a>
           </Typography>
         </label>
-        <Button type={"submit"}>Register</Button>
-        
+        <Button type="submit" color="secondary" variant="contained">
+          Register
+        </Button>
       </form>
     </>
   );

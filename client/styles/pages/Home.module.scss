@@ -1,0 +1,44 @@
+.orange_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  background-color: #d87d4a;
+  position: relative;
+  border-radius: 8px;
+  img {
+    margin: 96px 70px 0 110px;
+    z-index: 10;
+  }
+  &::before {
+    content: " ";
+    background-image: url("/ZX9speaker-decor.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+  }
+  margin-bottom: 48px;
+}
+
+.grey_card {
+  height: 320px;
+  border-radius: 8x;
+  background-image: url("/ZX7speaker.png");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  &_descr {
+    margin-left: 95px;
+  }
+  margin-bottom: 48px;
+}
+.double_card {
+  height: 320px;
+  display: flex;
+  justify-content: space-between;
+}

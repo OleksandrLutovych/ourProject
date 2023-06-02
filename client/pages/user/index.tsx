@@ -1,23 +1,24 @@
 import { allUsersAPI } from "api/api";
+import { Header } from "components";
 import { useAppSelector } from "hooks/reduxHooks";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IUser } from "types/User";
 
 const index = () => {
   const [allUsers, setAllUsers] = useState<IUser[]>();
-  useState(() => {
-    try {
-      fetch(allUsersAPI)
-        .then((response) => response.json())
-        .then((data) => setAllUsers(data));
-    } catch (error) {}
-  });
+  useEffect(() => {
+    fetch('https://localhost:5001/Api/GetAllUsers')
+      .then((response) => response.json())
+      .then((data) => setAllUsers(data));
+  }, []);
+  console.log(allUsers)
   return (
     <div>
+      <Header/>
       {allUsers &&
         allUsers.map((user: IUser) => {
           return (
-            <div className="">
+            <div className="" key={1}>
               name: {user.name}
               last: {user.lastName}
               email: {user.email}

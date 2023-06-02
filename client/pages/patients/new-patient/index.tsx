@@ -1,11 +1,12 @@
+import CreatePatient from "components/UI/CreatePatient/CreatePatient";
 import UserNavigation from "components/UserNavigation/UserNavigation";
 import React from "react";
 
 const index = () => {
   return (
-    <div>
-      <UserNavigation />
-    </div>
+    <UserNavigation>
+      <CreatePatient />
+    </UserNavigation>
   );
 };
 

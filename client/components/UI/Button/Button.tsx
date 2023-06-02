@@ -5,11 +5,12 @@ interface IButton {
   children: ReactNode;
   onClick?: () => void;
   type?: "submit" | "reset" | "button";
+  style?: any;
 }
 
-const Button: React.FC<IButton> = ({ children, onClick, type }) => {
+const Button: React.FC<IButton> = ({ children, onClick, type, style }) => {
   return (
-    <button onClick={onClick} className={styles.btn} type={type}>
+    <button onClick={onClick} className={styles.btn} type={type} style={style}>
       {children}
     </button>
   );
