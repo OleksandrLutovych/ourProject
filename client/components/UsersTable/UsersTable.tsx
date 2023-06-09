@@ -11,9 +11,9 @@ import {
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import Link from "next/link";
 import React, { useEffect } from "react";
-import { getAllUsers } from "redux-state/reducers/UsersReducer";
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { getUsersFetch } from "redux-state/reducers/UsersReducer";
 
 interface IUserTableProps {
   searchedUser: string;
@@ -28,8 +28,9 @@ const UsersTable = ({ searchedUser }: IUserTableProps) => {
   );
 
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getUsersFetch());
   }, [dispatch]);
+  console.log(searchUs);
 
   return (
     <TableContainer component={Paper}>
@@ -44,24 +45,29 @@ const UsersTable = ({ searchedUser }: IUserTableProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {searchUs.map((user) => (
-            <TableRow
-              key={user.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              hover
-            >
-              <TableCell component="th" scope="row">
-                <Link href={`/patient`}>{user.name}</Link>
-              </TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>{user.address.street}</TableCell>
-              <TableCell>{user.phone}</TableCell>
-              <TableCell >
-                <Button><ModeEditIcon/></Button>
-                <Button><DeleteIcon/></Button>
-              </TableCell>
-            </TableRow>
-          ))}
+          {searchUs &&
+            searchUs.map((user) => (
+              <TableRow
+                key={user.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                hover
+              >
+                <TableCell component="th" scope="row">
+                  <Link href={`/patient`}>{user.name}</Link>
+                </TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.address.street}</TableCell>
+                <TableCell>{user.phone}</TableCell>
+                <TableCell>
+                  <Button>
+                    <ModeEditIcon />
+                  </Button>
+                  <Button>
+                    <DeleteIcon />
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
