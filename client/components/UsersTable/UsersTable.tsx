@@ -1,19 +1,18 @@
-import {
-  Table,
-  TableContainer,
-  TableRow,
-  TableCell,
-  TableBody,
-  TableHead,
-  Paper,
-  Button,
-} from "@mui/material";
 import { useAppDispatch, useAppSelector } from "hooks/reduxHooks";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getUsersFetch } from "redux-state/reducers/UsersReducer";
+import {
+  Button,
+  Table,
+  TableContainer,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 
 interface IUserTableProps {
   searchedUser: string;
@@ -33,42 +32,38 @@ const UsersTable = ({ searchedUser }: IUserTableProps) => {
   console.log(searchUs);
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Address</TableCell>
-            <TableCell>Phone</TableCell>
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
+    <TableContainer>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Name</Th>
+            <Th>Email</Th>
+            <Th>Address</Th>
+            <Th>Phone</Th>
+            <Th>Action</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
           {searchUs &&
             searchUs.map((user) => (
-              <TableRow
-                key={user.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                hover
-              >
-                <TableCell component="th" scope="row">
+              <Tr key={user.name}>
+                <Th>
                   <Link href={`/patient`}>{user.name}</Link>
-                </TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.address.street}</TableCell>
-                <TableCell>{user.phone}</TableCell>
-                <TableCell>
+                </Th>
+                <Th>{user.email}</Th>
+                <Th>{user.address.street}</Th>
+                <Th>{user.phone}</Th>
+                <Th>
                   <Button>
                     <ModeEditIcon />
                   </Button>
                   <Button>
                     <DeleteIcon />
                   </Button>
-                </TableCell>
-              </TableRow>
+                </Th>
+              </Tr>
             ))}
-        </TableBody>
+        </Tbody>
       </Table>
     </TableContainer>
   );
